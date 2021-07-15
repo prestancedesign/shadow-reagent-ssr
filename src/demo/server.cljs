@@ -19,7 +19,8 @@
   (d/render-to-static-markup [template core/app-view]))
 
 (defn handle-request [req res]
-  (.send res (render-page (.-path req))))
+  (.send res (str "<!doctype html>"
+                  (render-page (.-path req)))))
 
 (defn main []
   (let [port 3000]
