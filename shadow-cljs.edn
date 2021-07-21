@@ -5,9 +5,16 @@
  [[reagent "1.1.0"]
   [clj-commons/secretary "1.2.4"]
   [kibu/pushy "0.3.8"]]
+  [bidi "2.1.6"]
+  [kibu/pushy "0.3.8"]
 
  :builds
  {:server
   {:target :node-script
    :output-to "public/js/server.js"
-   :main server/main}}}
+   :main demo.server/main}
+  :client
+  {:target :browser
+   :output-dir "public/js"
+   :asset-path "js"
+   :modules {:app {:init-fn demo.client/init!}}}}}

@@ -1,8 +1,7 @@
 (ns demo.server
   (:require ["express" :as express]
             [reagent.dom.server :as d]
-            [demo.core :as core]
-            ["path" :as path]))
+            [demo.core :as core]))
 
 (defn template [body]
   [:html
@@ -16,7 +15,8 @@
     [:script {:src "/js/app.js"}]]])
 
 (defn render-page [path]
-  (d/render-to-static-markup [template core/app-view]))
+  (core/navigate-to path)
+  (d/render-to-string [template core/app-view]))
 
 (defn handle-request [req res]
   (.send res (str "<!doctype html>"
@@ -25,6 +25,6 @@
 (defn main []
   (let [port 3000]
     (-> (express)
-        (.use (.static express (.resolve path "public")))
-        (.get "/" handle-request)
+        (.use (.static express "public"))
+        (.get "*" handle-request)
         (.listen port #(println "Server started on port" port)))))
