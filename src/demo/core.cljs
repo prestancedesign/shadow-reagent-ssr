@@ -5,7 +5,8 @@
 (def active-route (r/atom nil))
 
 (def routes ["/" {""     :home-page
-                  "demo" :demo-page}])
+                  "demo" :demo-page
+                  true   :not-found}])
 
 (defn parse-url [url]
   (bidi/match-route routes url))
